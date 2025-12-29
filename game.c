@@ -27,6 +27,7 @@ int escapeX;
 int escapeY;
 
 
+
 void setEscapeCoord(char map[ROWS][COLS + 1]) {
 
     for (int i = 0; i < ROWS; i++) {
@@ -41,23 +42,24 @@ void setEscapeCoord(char map[ROWS][COLS + 1]) {
         }
     }
 }
-void printMap (char map[ROWS][COLS + 1]) {
-    for (int i = 0; i < ROWS; i++) {
 
+void printMap (char map[ROWS][COLS + 1]) {
+
+    for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS ; j++) {
             printf("%c", map[i][j]);
 
         }
-
         printf("\n");
-
     }
 
     printf("\n");
 }
+
 void clearScreen() {
     printf("\033[2J\033[H");
 }
+
 
 
 
@@ -98,7 +100,8 @@ void updateMap (char map[ROWS][COLS + 1], Player *p) {
     for (int i = 0 ; i < ROWS ; i++) {
         for (int j = 0 ; j < COLS ; j++) {
 
-            if (map[i][j] == '@') map[i][j] = '.';
+
+            if (map[i][j] == '@' || map[i][j] == 'S') map[i][j] = '.';
 
             if (i == p->posY && j == p->posX) {
                 map[i][j] = '@';
@@ -114,7 +117,7 @@ void updateMap (char map[ROWS][COLS + 1], Player *p) {
 
 
 /* Check if the input move goes into a wall or not, if yes it will return 0, else the move is possible, so return 1 */
-void isThisMovePossible (int x, int y, char map [ROWS][COLS + 1], Player* player) {
+void movePlayer (int x, int y, char map [ROWS][COLS + 1], Player* player) {
     if (map[y][x] != '#') {
         player->posX = x;
         player->posY = y;
@@ -164,7 +167,7 @@ int main (void) {
                        continue;
                }
 
-        isThisMovePossible(x,y,map,&player);
+        movePlayer(x,y,map,&player);
 
         if (player.posX == escapeX && player.posY == escapeY) {
              game1 = WIN;

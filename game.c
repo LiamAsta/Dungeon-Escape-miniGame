@@ -3,15 +3,6 @@
 #include <string.h>
 
 
-typedef enum {
-    RUNNING,
-    WIN,
-    EXIT
-}GameState ;
-
-GameState game1;
-
-
 #define ROWS 6
 #define COLS 10
 
@@ -41,23 +32,33 @@ void setEscapeCoord(char map[ROWS][COLS + 1]) {
         }
     }
 }
+
+
 void printMap (char map[ROWS][COLS + 1]) {
     for (int i = 0; i < ROWS; i++) {
 
         for (int j = 0; j < COLS ; j++) {
+            
             printf("%c", map[i][j]);
-            fflush(stdout);
+
         }
 
         printf("\n");
-        fflush(stdout);
+
     }
 
     printf("\n");
 }
+
 void clearScreen() {
     printf("\033[2J\033[H");
 }
+
+
+
+
+
+
 
 
 
@@ -135,6 +136,16 @@ int isThisMovePossible (int x, int y, char map [ROWS][COLS + 1]) {
 
 
 
+typedef enum {
+    RUNNING,
+    WIN,
+    EXIT
+}GameState ;
+
+GameState game1;
+
+
+
 int main (void) {
 
      game1 = RUNNING;
@@ -190,3 +201,4 @@ int main (void) {
 
 
 }
+

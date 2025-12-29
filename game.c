@@ -151,7 +151,7 @@ int main (void) {
 
      while (game1 == RUNNING) {
 
-         printf("MOSSE RIMANENTI : %d\n", player.numMosse - 1);
+         printf("MOSSE RIMANENTI : %d\n", player.numMosse);
 
          char key = getchar();
 
@@ -177,11 +177,15 @@ int main (void) {
         if (player.numMosse == 0) { game1 = EXIT; break; }
      }
 
+     
      if (game1 == WIN) {
          printf("VINTO\n");
      } else if (game1 == EXIT) {
          printf("PERSO\n");
      }
+     
+     
+     
      return 0;
 
 

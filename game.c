@@ -114,9 +114,17 @@ void updateMap (char map[ROWS][COLS + 1], Player *p) {
 
 
 /* Check if the input move goes into a wall or not, if yes it will return 0, else the move is possible, so return 1 */
-int isThisMovePossible (int x, int y, char map [ROWS][COLS + 1]) {
-    if (map[y][x] != '#') return 1;
-    return 0;
+void isThisMovePossible (int x, int y, char map [ROWS][COLS + 1], Player* player) {
+    if (map[y][x] != '#') {
+        player->posX = x;
+        player->posY = y;
+        player->numMosse--;
+        updateMap(map, player);
+    } else {
+        player->numMosse--;
+        clearScreen();
+        printMap(map);
+    }
 }
 
 
@@ -143,7 +151,6 @@ int main (void) {
          printf("MOSSE RIMANENTI : %d\n", player.numMosse - 1);
 
          char key = getchar();
-         do { key = getchar(); } while (key == '\n');
 
          int x = player.posX;
          int y = player.posY;
@@ -157,12 +164,7 @@ int main (void) {
                        continue;
                }
 
-        if (isThisMovePossible(x,y,map)) {
-            player.posX = x;
-            player.posY = y;
-            player.numMosse--;
-            updateMap(map, &player);
-        } else {player.numMosse--; clearScreen();printMap(map); }
+        isThisMovePossible(x,y,map,&player);
 
         if (player.posX == escapeX && player.posY == escapeY) {
              game1 = WIN;

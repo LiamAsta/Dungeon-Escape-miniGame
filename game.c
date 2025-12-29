@@ -41,26 +41,6 @@ void setEscapeCoord(char map[ROWS][COLS + 1]) {
         }
     }
 }
-
-
-
-void ripristinaMappa(char map[ROWS][COLS + 1]) {
-
-    if (map[0][0] != 'X') return;
-
-    const char *mappa_iniziale[ROWS] = {
-        "##########",
-        "#..S....##",
-        "#.#####.##",
-        "#.....##.#",
-        "####...E##",
-        "##########"
-    };
-
-    for (int i = 0; i < ROWS; i++) {
-        strncpy(map[i], mappa_iniziale[i], COLS + 1);
-    }
-}
 void printMap (char map[ROWS][COLS + 1]) {
     for (int i = 0; i < ROWS; i++) {
 
@@ -74,15 +54,6 @@ void printMap (char map[ROWS][COLS + 1]) {
     }
 
     printf("\n");
-}
-void clearMap (char map[ROWS][COLS + 1]) {
-    for (int i = 0; i < ROWS; i++) {
-
-        for (int j = 0; j < COLS ; j++) {
-            map[i][j] = 'X';
-        }
-
-    }
 }
 void clearScreen() {
     printf("\033[2J\033[H");
@@ -145,7 +116,7 @@ void updateMap (char map[ROWS][COLS + 1], Player *p) {
 
 /* function that updates the game only if the player doesn go into a wall */
 void update (char map[ROWS][COLS + 1], Player *p, int x, int y) {
-    if (map[p->posY][p->posX] != '#') {
+    if (map[y][x] != '#' && map[y][x] != '\n') {
         p->posX = x;
         p->posY = y;
         p->numMosse--;
@@ -156,7 +127,7 @@ void update (char map[ROWS][COLS + 1], Player *p, int x, int y) {
 
 /* Check if the input move goes into a wall or not, if yes it will return 0, else the move is possible, so return 1 */
 int isThisMovePossible (int x, int y, char map [ROWS][COLS + 1]) {
-    if (map[y][x] != '#') return 1;
+    if (map[y][x] != '#' && map[y][x] != '\n') return 1;
     return 0;
 }
 
